@@ -169,6 +169,7 @@ body {
   position: absolute;
   inset: 0;
   overflow-y: auto;
+  min-height: 0;
   padding: 32px 36px 48px;
   opacity: 0;
   pointer-events: none;
@@ -177,7 +178,7 @@ body {
 }
 .view.active {
   opacity: 1;
-  pointer-events: all;
+  pointer-events: auto;
   transform: translateX(0);
 }
 
@@ -1036,4 +1037,3 @@ body {
 .rec-title  { font-size: 0.88rem; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
 .rec-detail { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 4px; }
 .rec-action { font-size: 0.75rem; color: var(--accent-cyan); font-style: italic; }
-
