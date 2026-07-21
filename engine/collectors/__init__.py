@@ -1,0 +1,1 @@
+# VeriCore collectors package

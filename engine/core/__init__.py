@@ -1,0 +1,1 @@
+# VeriCore core package

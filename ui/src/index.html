@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="VeriCore – Deep hardware inspection and device authenticity platform. Cross-validates firmware, BIOS, SMART, TPM and more to verify your device identity." />
+  <title>VeriCore – Device Authenticity Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════
+       SIDEBAR
+  ══════════════════════════════════════════════ -->
+  <aside id="sidebar">
+    <div id="sidebar-logo">
+      <div class="logo-mark">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#3b82f6" stroke-width="1.5"/>
+          <polygon points="14,6 22,10 22,18 14,22 6,18 6,10" fill="none" stroke="#06b6d4" stroke-width="1"/>
+          <circle cx="14" cy="14" r="3" fill="#3b82f6"/>
+        </svg>
+      </div>
+      <span class="logo-text">VeriCore</span>
+    </div>
+
+    <nav id="sidebar-nav">
+      <button class="nav-item active" data-view="dashboard" id="nav-dashboard" title="Dashboard">
+        <span class="nav-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
+          </svg>
+        </span>
+        <span class="nav-label">Dashboard</span>
+      </button>
+
+      <button class="nav-item" data-view="scan" id="nav-scan" title="Scan">
+        <span class="nav-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>
+            <line x1="12" y1="3" x2="12" y2="1"/><line x1="12" y1="23" x2="12" y2="21"/>
+            <line x1="3" y1="12" x2="1" y2="12"/><line x1="23" y1="12" x2="21" y2="12"/>
+          </svg>
+        </span>
+        <span class="nav-label">Scan</span>
+      </button>
+
+      <button class="nav-item" data-view="report" id="nav-report" title="Report">
+        <span class="nav-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/>
+            <line x1="8" y1="9" x2="10" y2="9"/>
+          </svg>
+        </span>
+        <span class="nav-label">Report</span>
+      </button>
+
+      <button class="nav-item" data-view="diagnostics" id="nav-diagnostics" title="Diagnostics">
+        <span class="nav-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </span>
+        <span class="nav-label">Diagnostics</span>
+      </button>
+
+      <button class="nav-item" data-view="settings" id="nav-settings" title="Settings">
+        <span class="nav-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </span>
+        <span class="nav-label">Settings</span>
+      </button>
+    </nav>
+
+    <div id="sidebar-version">v1.0.0</div>
+  </aside>
+
+  <!-- ══════════════════════════════════════════════
+       MAIN CONTENT
+  ══════════════════════════════════════════════ -->
+  <main id="main-content">
+
+    <!-- ── DASHBOARD ── -->
+    <section id="view-dashboard" class="view active">
+      <header class="view-header">
+        <div>
+          <h1 class="view-title">Device Overview</h1>
+          <p class="view-subtitle">Hardware identity &amp; health at a glance</p>
+        </div>
+        <div class="header-actions">
+          <span id="last-scan-time" class="muted-text">No scan run yet</span>
+          <button id="btn-begin-scan" class="btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>
+            </svg>
+            Begin Scan
+          </button>
+        </div>
+      </header>
+
+      <!-- Hero Score Row -->
+      <div id="hero-row">
+        <div class="score-card glass" id="health-score-card">
+          <div class="score-ring-container">
+            <svg class="health-ring" viewBox="0 0 120 120" id="health-ring-svg">
+              <defs>
+                <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#3b82f6"/>
+                  <stop offset="100%" style="stop-color:#06b6d4"/>
+                </linearGradient>
+                <filter id="ringGlow">
+                  <feGaussianBlur stdDeviation="2" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+              <circle class="ring-bg" cx="60" cy="60" r="50"/>
+              <circle class="ring-track" cx="60" cy="60" r="50" id="health-ring-track" filter="url(#ringGlow)"/>
+            </svg>
+            <div class="ring-center">
+              <span class="ring-value" id="health-score-value">—</span>
+              <span class="ring-label">Health</span>
+            </div>
+          </div>
+          <div class="score-card-info">
+            <h2 class="score-title">Device Health Score</h2>
+            <p class="score-desc">Weighted analysis of all hardware components</p>
+            <div id="health-grade-badge" class="grade-badge">—</div>
+          </div>
+        </div>
+
+        <div class="score-card glass" id="auth-score-card">
+          <div class="score-ring-container">
+            <svg class="health-ring" viewBox="0 0 120 120" id="auth-ring-svg">
+              <defs>
+                <linearGradient id="authGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#8b5cf6"/>
+                  <stop offset="100%" style="stop-color:#06b6d4"/>
+                </linearGradient>
+                <filter id="authGlow">
+                  <feGaussianBlur stdDeviation="2" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+              <circle class="ring-bg" cx="60" cy="60" r="50"/>
+              <circle class="ring-track auth-track" cx="60" cy="60" r="50" id="auth-ring-track" filter="url(#authGlow)"/>
+            </svg>
+            <div class="ring-center">
+              <span class="ring-value" id="auth-score-value">—</span>
+              <span class="ring-label">Authentic</span>
+            </div>
+          </div>
+          <div class="score-card-info">
+            <h2 class="score-title">Authenticity Score</h2>
+            <p class="score-desc">Cross-source hardware identity validation</p>
+            <div id="auth-status-badge" class="grade-badge">—</div>
+          </div>
+        </div>
+
+        <div class="glass info-card" id="device-identity-card">
+          <div class="info-card-header">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+            </svg>
+            <span>Device Identity</span>
+          </div>
+          <div class="identity-rows" id="identity-rows">
+            <div class="identity-row"><span class="id-label">Manufacturer</span><span class="id-value" id="id-manufacturer">—</span></div>
+            <div class="identity-row"><span class="id-label">Model</span><span class="id-value" id="id-model">—</span></div>
+            <div class="identity-row"><span class="id-label">Serial</span><span class="id-value" id="id-serial">—</span></div>
+            <div class="identity-row"><span class="id-label">BIOS</span><span class="id-value" id="id-bios">—</span></div>
+            <div class="identity-row"><span class="id-label">UUID</span><span class="id-value id-uuid" id="id-uuid">—</span></div>
+          </div>
+          <div id="no-scan-notice" class="no-scan-notice">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <p>Run a scan to see<br/>device identity</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Component Cards Grid -->
+      <div class="section-label">Hardware Components</div>
+      <div id="component-grid">
+        <!-- CPU -->
+        <div class="component-card glass" id="card-cpu">
+          <div class="card-icon cpu-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="4" y="4" width="16" height="16" rx="2"/>
+              <rect x="9" y="9" width="6" height="6"/>
+              <line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/>
+              <line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/>
+              <line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/>
+              <line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">Processor</div>
+            <div class="card-value" id="cpu-card-value">—</div>
+            <div class="card-meta" id="cpu-card-meta">—</div>
+          </div>
+          <div class="card-status" id="cpu-card-status"><span class="status-badge badge-neutral">—</span></div>
+        </div>
+
+        <!-- Memory -->
+        <div class="component-card glass" id="card-memory">
+          <div class="card-icon mem-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="2" y="7" width="20" height="10" rx="1"/>
+              <line x1="6" y1="7" x2="6" y2="17"/><line x1="10" y1="7" x2="10" y2="17"/>
+              <line x1="14" y1="7" x2="14" y2="17"/><line x1="18" y1="7" x2="18" y2="17"/>
+              <line x1="6" y1="4" x2="6" y2="7"/><line x1="10" y1="4" x2="10" y2="7"/>
+              <line x1="14" y1="4" x2="14" y2="7"/><line x1="18" y1="4" x2="18" y2="7"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">Memory</div>
+            <div class="card-value" id="mem-card-value">—</div>
+            <div class="card-meta" id="mem-card-meta">—</div>
+          </div>
+          <div class="card-status" id="mem-card-status"><span class="status-badge badge-neutral">—</span></div>
+        </div>
+
+        <!-- Storage -->
+        <div class="component-card glass" id="card-storage">
+          <div class="card-icon stor-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <ellipse cx="12" cy="5" rx="9" ry="3"/>
+              <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+              <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">Storage</div>
+            <div class="card-value" id="stor-card-value">—</div>
+            <div class="card-meta" id="stor-card-meta">—</div>
+          </div>
+          <div class="card-status" id="stor-card-status"><span class="status-badge badge-neutral">—</span></div>
+        </div>
+
+        <!-- Battery -->
+        <div class="component-card glass" id="card-battery">
+          <div class="card-icon bat-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="1" y="7" width="18" height="10" rx="2"/>
+              <line x1="23" y1="10" x2="23" y2="14"/>
+              <rect x="3" y="9" width="10" height="6" rx="1" fill="currentColor" opacity="0.4"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">Battery</div>
+            <div class="card-value" id="bat-card-value">—</div>
+            <div class="card-meta" id="bat-card-meta">—</div>
+          </div>
+          <div class="card-status" id="bat-card-status"><span class="status-badge badge-neutral">—</span></div>
+        </div>
+
+        <!-- Display -->
+        <div class="component-card glass" id="card-display">
+          <div class="card-icon disp-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="2" y="3" width="20" height="14" rx="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">Display</div>
+            <div class="card-value" id="disp-card-value">—</div>
+            <div class="card-meta" id="disp-card-meta">—</div>
+          </div>
+          <div class="card-status" id="disp-card-status"><span class="status-badge badge-neutral">—</span></div>
+        </div>
+
+        <!-- GPU -->
+        <div class="component-card glass" id="card-gpu">
+          <div class="card-icon gpu-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="2" y="6" width="20" height="12" rx="2"/>
+              <circle cx="12" cy="12" r="3"/>
+              <line x1="6" y1="6" x2="6" y2="3"/><line x1="10" y1="6" x2="10" y2="3"/>
+              <line x1="14" y1="6" x2="14" y2="3"/><line x1="18" y1="6" x2="18" y2="3"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">GPU</div>
+            <div class="card-value" id="gpu-card-value">—</div>
+            <div class="card-meta" id="gpu-card-meta">—</div>
+          </div>
+          <div class="card-status" id="gpu-card-status"><span class="status-badge badge-neutral">—</span></div>
+        </div>
+
+        <!-- Network -->
+        <div class="component-card glass" id="card-network">
+          <div class="card-icon net-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+              <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">Network</div>
+            <div class="card-value" id="net-card-value">—</div>
+            <div class="card-meta" id="net-card-meta">—</div>
+          </div>
+          <div class="card-status" id="net-card-status"><span class="status-badge badge-neutral">—</span></div>
+        </div>
+
+        <!-- TPM -->
+        <div class="component-card glass" id="card-tpm">
+          <div class="card-icon tpm-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <polyline points="9 12 11 14 15 10"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">TPM Security</div>
+            <div class="card-value" id="tpm-card-value">—</div>
+            <div class="card-meta" id="tpm-card-meta">—</div>
+          </div>
+          <div class="card-status" id="tpm-card-status"><span class="status-badge badge-neutral">—</span></div>
+        </div>
+      </div>
+      <!-- Recent Scans History -->
+      <div class="section-label" style="margin-top:28px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Recent Scans
+        <button id="btn-clear-history" class="btn-ghost-sm" style="margin-left:auto;">Clear History</button>
+      </div>
+      <div id="history-cards" class="history-row"></div>
+    </section>
+
+    <!-- ── SCAN ── -->
+    <section id="view-scan" class="view">
+      <header class="view-header">
+        <div>
+          <h1 class="view-title">Hardware Scan</h1>
+          <p class="view-subtitle">Deep cross-source hardware validation</p>
+        </div>
+        <div class="header-actions">
+          <span id="scan-elapsed" class="muted-text">0s</span>
+          <button id="btn-cancel-scan" class="btn-secondary" style="display:none">Cancel</button>
+        </div>
+      </header>
+
+      <div id="scan-layout">
+        <div id="scan-visual">
+          <div class="scan-orb">
+            <div class="scan-orb-ring r1"></div>
+            <div class="scan-orb-ring r2"></div>
+            <div class="scan-orb-ring r3"></div>
+            <div class="scan-orb-core">
+              <svg width="36" height="36" viewBox="0 0 28 28" fill="none">
+                <polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#3b82f6" stroke-width="1.5"/>
+                <circle cx="14" cy="14" r="4" fill="#3b82f6"/>
+              </svg>
+            </div>
+          </div>
+          <div id="scan-sweep"></div>
+          <div id="scan-status-text">Initializing scan...</div>
+          <div class="progress-track">
+            <div class="progress-bar" id="scan-progress-bar" style="width:0%"></div>
+          </div>
+          <div id="scan-percent-label">0%</div>
+        </div>
+
+        <div id="scan-items-panel">
+          <div class="panel-title">Component Analysis</div>
+          <ul id="scan-items-list"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-report" class="view">
+      <header class="view-header">
+        <div>
+          <h1 class="view-title">Authenticity Report</h1>
+          <p class="view-subtitle" id="report-timestamp">—</p>
+        </div>
+        <div class="header-actions">
+          <button id="btn-export-report" class="btn-secondary">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export JSON
+          </button>
+          <button id="btn-rescan" class="btn-primary">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            Re-scan
+          </button>
+        </div>
+      </header>
+
+      <!-- Verdict Banner -->
+      <div id="report-verdict"></div>
+
+      <!-- Score Summary -->
+      <div id="report-scores-row">
+        <div class="report-score-block glass">
+          <div class="rsb-value" id="report-health-value">—</div>
+          <div class="rsb-label">Health Score</div>
+          <div class="rsb-grade" id="report-health-grade">—</div>
+        </div>
+        <div class="report-score-block glass">
+          <div class="rsb-value auth-color" id="report-auth-value">—</div>
+          <div class="rsb-label">Authenticity Score</div>
+          <div class="rsb-grade" id="report-auth-grade">—</div>
+        </div>
+        <div class="report-score-block glass" id="report-issues-block">
+          <div class="rsb-value warning-color" id="report-issues-count">—</div>
+          <div class="rsb-label">Issues Found</div>
+          <div class="rsb-grade" id="report-issues-label">—</div>
+        </div>
+      </div>
+
+      <!-- System Identity -->
+      <div class="section-label">System Identity</div>
+      <div id="report-identity-section" class="glass" style="padding:20px;border-radius:var(--radius-md);margin-bottom:24px;"></div>
+
+      <!-- Component Cards -->
+      <div class="section-label">Hardware Components</div>
+      <div id="report-comp-cards" class="report-comp-grid"></div>
+
+      <!-- Inconsistencies -->
+      <div id="inconsistencies-section">
+        <div class="section-label">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          Inconsistencies Detected
+        </div>
+        <div id="inconsistencies-list"></div>
+        <div id="no-inconsistencies" class="no-issues-notice" style="display:none">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <p>No hardware inconsistencies detected</p>
+        </div>
+      </div>
+
+      <!-- Recommendations -->
+      <div id="recommendations-section">
+        <div class="section-label">Recommendations</div>
+        <div id="recommendations-list"></div>
+      </div>
+    </section>
+
+    <!-- ── DIAGNOSTICS ── -->
+    <section id="view-diagnostics" class="view">
+      <header class="view-header">
+        <div>
+          <h1 class="view-title">Diagnostics</h1>
+          <p class="view-subtitle">Active performance testing &amp; stress analysis</p>
+        </div>
+        <div class="header-actions">
+          <button id="btn-diag-all" class="btn-primary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Run All Tests
+          </button>
+        </div>
+      </header>
+      <div id="diagnostics-grid">
+        <div class="diag-card glass" id="diag-cpu">
+          <div class="diag-card-header">
+            <span class="diag-icon cpu-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/>
+              </svg>
+            </span>
+            <span>CPU Stress Test</span>
+            <span class="diag-status" id="diag-cpu-status">Ready</span>
+          </div>
+          <div class="diag-body">
+            <p class="diag-desc">Applies 100% CPU load across all cores and monitors temperature, frequency, and stability over 30 seconds.</p>
+            <div class="diag-metric-row">
+              <div class="diag-metric"><span class="dm-label">Load</span><span class="dm-val" id="dcpu-load">—</span></div>
+              <div class="diag-metric"><span class="dm-label">Temp</span><span class="dm-val" id="dcpu-temp">—</span></div>
+              <div class="diag-metric"><span class="dm-label">Freq</span><span class="dm-val" id="dcpu-freq">—</span></div>
+            </div>
+            <button class="btn-primary diag-btn" id="btn-diag-cpu">Run Test</button>
+          </div>
+        </div>
+        <div class="diag-card glass" id="diag-mem">
+          <div class="diag-card-header">
+            <span class="diag-icon mem-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="2" y="7" width="20" height="10" rx="1"/>
+                <line x1="6" y1="7" x2="6" y2="17"/><line x1="10" y1="7" x2="10" y2="17"/>
+                <line x1="14" y1="7" x2="14" y2="17"/><line x1="18" y1="7" x2="18" y2="17"/>
+              </svg>
+            </span>
+            <span>Memory Stability</span>
+            <span class="diag-status" id="diag-mem-status">Ready</span>
+          </div>
+          <div class="diag-body">
+            <p class="diag-desc">Writes and reads patterns across available RAM to detect bit errors, stuck bits, and address failures.</p>
+            <div class="diag-metric-row">
+              <div class="diag-metric"><span class="dm-label">Tested</span><span class="dm-val" id="dmem-tested">—</span></div>
+              <div class="diag-metric"><span class="dm-label">Errors</span><span class="dm-val" id="dmem-errors">—</span></div>
+              <div class="diag-metric"><span class="dm-label">Speed</span><span class="dm-val" id="dmem-speed">—</span></div>
+            </div>
+            <button class="btn-primary diag-btn" id="btn-diag-mem">Run Test</button>
+          </div>
+        </div>
+        <div class="diag-card glass" id="diag-stor">
+          <div class="diag-card-header">
+            <span class="diag-icon stor-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+              </svg>
+            </span>
+            <span>Storage Benchmark</span>
+            <span class="diag-status" id="diag-stor-status">Ready</span>
+          </div>
+          <div class="diag-body">
+            <p class="diag-desc">Measures sequential read/write and random 4K IOPS performance to validate advertised storage specifications.</p>
+            <div class="diag-metric-row">
+              <div class="diag-metric"><span class="dm-label">Seq Read</span><span class="dm-val" id="dstor-read">—</span></div>
+              <div class="diag-metric"><span class="dm-label">Seq Write</span><span class="dm-val" id="dstor-write">—</span></div>
+              <div class="diag-metric"><span class="dm-label">IOPS</span><span class="dm-val" id="dstor-iops">—</span></div>
+            </div>
+            <button class="btn-primary diag-btn" id="btn-diag-stor">Run Test</button>
+          </div>
+        </div>
+        <div class="diag-card glass" id="diag-thermal">
+          <div class="diag-card-header">
+            <span class="diag-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>
+              </svg>
+            </span>
+            <span>Thermal Monitor</span>
+            <span class="diag-status" id="diag-thermal-status">Ready</span>
+          </div>
+          <div class="diag-body">
+            <p class="diag-desc">Monitors CPU and system temperatures in real-time, detecting thermal throttling and cooling inefficiencies.</p>
+            <div class="diag-metric-row">
+              <div class="diag-metric"><span class="dm-label">CPU Temp</span><span class="dm-val" id="dtherm-cpu">—</span></div>
+              <div class="diag-metric"><span class="dm-label">System</span><span class="dm-val" id="dtherm-sys">—</span></div>
+              <div class="diag-metric"><span class="dm-label">Throttle</span><span class="dm-val" id="dtherm-throttle">—</span></div>
+            </div>
+            <button class="btn-primary diag-btn" id="btn-diag-thermal">Start Monitor</button>
+          </div>
+        </div>
+      </div>
+      <div class="coming-soon-note">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        Diagnostics engine connects to Python backend. Demo animations shown when engine is offline.
+      </div>
+    </section>
+
+    <!-- ── SETTINGS ── -->
+    <section id="view-settings" class="view">
+      <header class="view-header">
+        <div>
+          <h1 class="view-title">Settings</h1>
+          <p class="view-subtitle">Configure VeriCore behaviour and preferences</p>
+        </div>
+      </header>
+      <div id="settings-grid">
+        <div class="glass settings-card">
+          <div class="settings-section-title">General</div>
+          <div class="settings-row">
+            <div class="settings-row-info">
+              <div class="sr-label">Administrator Status</div>
+              <div class="sr-desc">Deep hardware inspection requires Admin privileges.</div>
+            </div>
+            <div class="settings-row-control">
+              <span id="setting-admin-status" style="font-size:0.82rem;">Checking...</span>
+            </div>
+          </div>
+          <div class="settings-row">
+            <div class="settings-row-info">
+              <div class="sr-label">Relaunch as Administrator</div>
+              <div class="sr-desc">Triggers Windows UAC prompt for full hardware access.</div>
+            </div>
+            <div class="settings-row-control">
+              <button id="btn-relaunch-admin" class="btn-secondary" style="font-size:0.8rem;">Relaunch</button>
+            </div>
+          </div>
+          <div class="settings-row">
+            <div class="settings-row-info">
+              <div class="sr-label">Clear Scan History</div>
+              <div class="sr-desc">Removes all saved scan reports from local storage.</div>
+            </div>
+            <div class="settings-row-control">
+              <button id="btn-clear-history" class="btn-secondary" style="font-size:0.8rem;">Clear</button>
+            </div>
+          </div>
+        </div>
+          <div class="settings-row">
+            <div class="settings-row-info">
+              <div class="sr-label">Run as Administrator</div>
+              <div class="sr-desc">Required for SMART, SMBIOS, and TPM access. Highly recommended.</div>
+            </div>
+            <div class="settings-row-control"><span class="tag tag-warning">Required</span></div>
+          </div>
+          <div class="settings-row">
+            <div class="settings-row-info">
+              <div class="sr-label">Scan Depth</div>
+              <div class="sr-desc">Deep scan includes raw firmware reads and ACPI table parsing.</div>
+            </div>
+            <div class="settings-row-control">
+              <select id="setting-scan-depth" class="settings-select">
+                <option value="standard">Standard</option>
+                <option value="deep" selected>Deep</option>
+              </select>
+            </div>
+          </div>
+          <div class="settings-row">
+            <div class="settings-row-info">
+              <div class="sr-label">Include Registry Comparison</div>
+              <div class="sr-desc">Compare Registry values against hardware-reported values.</div>
+            </div>
+            <div class="settings-row-control">
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-registry" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="glass settings-card">
+          <div class="settings-section-title">About VeriCore</div>
+          <div class="about-block">
+            <div class="about-logo">
+              <svg width="40" height="40" viewBox="0 0 28 28" fill="none">
+                <polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#3b82f6" stroke-width="1.5"/>
+                <polygon points="14,6 22,10 22,18 14,22 6,18 6,10" fill="none" stroke="#06b6d4" stroke-width="1"/>
+                <circle cx="14" cy="14" r="3" fill="#3b82f6"/>
+              </svg>
+            </div>
+            <div class="about-text">
+              <div class="about-name">VeriCore</div>
+              <div class="about-version">Version 1.0.0</div>
+              <div class="about-tagline">Device Authenticity &amp; Hardware Inspection Platform</div>
+              <div class="about-motto">"Don't just read what the OS says — verify that it is true."</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/report.js"></script>
+  <script src="js/scan.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

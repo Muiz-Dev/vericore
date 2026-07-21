@@ -1,0 +1,33 @@
+{
+  "name": "vericore",
+  "version": "1.0.0",
+  "description": "VeriCore – Device Authenticity & Hardware Inspection Platform",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder"
+  },
+  "keywords": [
+    "hardware",
+    "inspection",
+    "authenticity",
+    "diagnostics"
+  ],
+  "author": "VeriCore",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^36.4.0"
+  },
+  "build": {
+    "appId": "com.vericore.app",
+    "productName": "VeriCore",
+    "win": {
+      "target": "nsis",
+      "icon": "src/assets/icon.ico"
+    }
+  },
+  "dependencies": {
+    "ws": "^8.21.1"
+  }
+}
