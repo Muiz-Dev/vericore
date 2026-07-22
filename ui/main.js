@@ -34,15 +34,32 @@ function relaunchAsAdmin() {
     return;
   }
 
-  const exePath = process.execPath;
-  // Use PowerShell to relaunch the packaged app with RunAs (triggers UAC shield)
-  spawn('powershell.exe', [
-    '-NoProfile', '-NonInteractive',
-    '-Command',
-    `Start-Process -FilePath '${exePath}' -Verb RunAs`
-  ], { detached: true, stdio: 'ignore' }).unref();
-  
-  app.quit();
+  try {
+    const exePath = process.execPath;
+    // Use PowerShell to relaunch the packaged app with RunAs (triggers UAC shield)
+    const p = spawn('powershell.exe', [
+      '-NoProfile', '-NonInteractive',
+      '-Command',
+      `Start-Process -FilePath '${exePath}' -Verb RunAs`
+    ], { detached: true, stdio: 'ignore' });
+
+    p.on('error', (err) => {
+      dialog.showErrorBox(
+        'Elevation Required',
+        `VeriCore requires administrative privileges to inspect hardware.\n\nFailed to relaunch as administrator: ${err.message}\n\nPlease right-click VeriCore and select "Run as administrator".`
+      );
+      app.quit();
+    });
+
+    p.unref();
+    app.quit();
+  } catch (err) {
+    dialog.showErrorBox(
+      'Elevation Required',
+      `VeriCore requires administrative privileges to inspect hardware.\n\nFailed to relaunch: ${err.message}\n\nPlease right-click VeriCore and select "Run as administrator".`
+    );
+    app.quit();
+  }
 }
 
 function resolveEnginePath() {
@@ -68,6 +85,11 @@ function startEngine() {
     });
 
     engineProcess.on('exit', () => {
+      engineProcess = null;
+    });
+
+    engineProcess.on('error', (err) => {
+      console.warn('Failed to start VeriCore engine process:', err.message);
       engineProcess = null;
     });
   } catch (err) {
