@@ -59,6 +59,7 @@
     ]
   },
   "dependencies": {
+    "electron-updater": "^6.1.7",
     "ws": "^8.21.1"
   }
 }

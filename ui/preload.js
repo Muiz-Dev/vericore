@@ -39,4 +39,11 @@ contextBridge.exposeInMainWorld('vericore', {
   onMenuExport: (callback) => {
     ipcRenderer.on('menu-export', () => callback());
   },
+
+  // OTA Updates
+  checkForUpdates: () => ipcRenderer.invoke('check-for-updates'),
+  installUpdate: () => ipcRenderer.invoke('install-update'),
+  onUpdateStatus: (callback) => {
+    ipcRenderer.on('update-status', (_event, data) => callback(data));
+  },
 });

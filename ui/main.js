@@ -9,6 +9,7 @@ const WebSocket = (() => {
   }
 })();
 const { execSync, spawn } = require('child_process');
+const { autoUpdater } = require('electron-updater');
 
 let mainWindow = null;
 let wsClient = null;
@@ -150,6 +151,50 @@ function createWindow() {
   });
 
   buildMenu();
+  setupAutoUpdater();
+}
+
+function setupAutoUpdater() {
+  autoUpdater.autoDownload = true;
+
+  autoUpdater.on('checking-for-update', () => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('update-status', { status: 'checking' });
+    }
+  });
+
+  autoUpdater.on('update-available', (info) => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('update-status', { status: 'available', version: info.version });
+    }
+  });
+
+  autoUpdater.on('update-not-available', (info) => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('update-status', { status: 'up-to-date' });
+    }
+  });
+
+  autoUpdater.on('error', (err) => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('update-status', { status: 'error', message: err.message });
+    }
+  });
+
+  autoUpdater.on('download-progress', (progressObj) => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('update-status', {
+        status: 'downloading',
+        percent: Math.round(progressObj.percent)
+      });
+    }
+  });
+
+  autoUpdater.on('update-downloaded', (info) => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('update-status', { status: 'downloaded', version: info.version });
+    }
+  });
 }
 
 function buildMenu() {
@@ -170,7 +215,6 @@ function buildMenu() {
       label: 'View',
       submenu: [
         { label: 'Reload', role: 'reload' },
-        { label: 'Toggle DevTools', role: 'toggleDevTools' },
         { type: 'separator' },
         { label: 'Reset Zoom', role: 'resetZoom' },
       ],
@@ -319,4 +363,52 @@ ipcMain.handle('get-basic-system-info', () => {
     os: `${os.type()} ${os.release()}`,
     version: pjson.version
   };
+});
+
+// --- IPC: OTA Updates ---
+ipcMain.handle('check-for-updates', async () => {
+  if (!app.isPackaged) {
+    // Simulate a flawless, premium simulated update flow in dev mode
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('update-status', { status: 'checking' });
+      await new Promise(r => setTimeout(r, 1200));
+      mainWindow.webContents.send('update-status', { status: 'available', version: '1.0.3' });
+      await new Promise(r => setTimeout(r, 1500));
+
+      // Live progress simulation
+      for (let p = 15; p <= 100; p += 20) {
+        if (mainWindow && !mainWindow.isDestroyed()) {
+          mainWindow.webContents.send('update-status', { status: 'downloading', percent: Math.min(p, 100) });
+        }
+        await new Promise(r => setTimeout(r, 400));
+      }
+
+      if (mainWindow && !mainWindow.isDestroyed()) {
+        mainWindow.webContents.send('update-status', { status: 'downloaded', version: '1.0.3' });
+      }
+    }
+    return { simulated: true };
+  }
+
+  try {
+    const result = await autoUpdater.checkForUpdates();
+    return { ok: true, result };
+  } catch (err) {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('update-status', { status: 'error', message: err.message });
+    }
+    return { ok: false, error: err.message };
+  }
+});
+
+ipcMain.handle('install-update', () => {
+  if (!app.isPackaged) {
+    dialog.showMessageBoxSync(mainWindow, {
+      type: 'info',
+      title: 'Dev Update Simulated',
+      message: 'Simulating quit and install. In production, this restarts the app and applies the new installer.',
+    });
+    return;
+  }
+  autoUpdater.quitAndInstall();
 });

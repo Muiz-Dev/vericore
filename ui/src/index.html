@@ -117,13 +117,9 @@
                   <stop offset="0%" style="stop-color:#3b82f6"/>
                   <stop offset="100%" style="stop-color:#06b6d4"/>
                 </linearGradient>
-                <filter id="ringGlow">
-                  <feGaussianBlur stdDeviation="2" result="blur"/>
-                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-                </filter>
               </defs>
               <circle class="ring-bg" cx="60" cy="60" r="50"/>
-              <circle class="ring-track" cx="60" cy="60" r="50" id="health-ring-track" filter="url(#ringGlow)"/>
+              <circle class="ring-track" cx="60" cy="60" r="50" id="health-ring-track"/>
             </svg>
             <div class="ring-center">
               <span class="ring-value" id="health-score-value">—</span>
@@ -145,13 +141,9 @@
                   <stop offset="0%" style="stop-color:#8b5cf6"/>
                   <stop offset="100%" style="stop-color:#06b6d4"/>
                 </linearGradient>
-                <filter id="authGlow">
-                  <feGaussianBlur stdDeviation="2" result="blur"/>
-                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-                </filter>
               </defs>
               <circle class="ring-bg" cx="60" cy="60" r="50"/>
-              <circle class="ring-track auth-track" cx="60" cy="60" r="50" id="auth-ring-track" filter="url(#authGlow)"/>
+              <circle class="ring-track auth-track" cx="60" cy="60" r="50" id="auth-ring-track"/>
             </svg>
             <div class="ring-center">
               <span class="ring-value" id="auth-score-value">—</span>
@@ -186,154 +178,194 @@
         </div>
       </div>
 
-      <!-- Component Cards Grid -->
-      <div class="section-label">Hardware Components</div>
-      <div id="component-grid">
-        <!-- CPU -->
-        <div class="component-card glass" id="card-cpu">
-          <div class="card-icon cpu-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <rect x="4" y="4" width="16" height="16" rx="2"/>
-              <rect x="9" y="9" width="6" height="6"/>
-              <line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/>
-              <line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/>
-              <line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/>
-              <line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>
-            </svg>
+      <!-- Curated Hardware Panels (To replace the cluttered symmetric grid with high-end asymmetrical groupings) -->
+      <div class="curated-panels">
+        <!-- Panel 1: Core Processing & Security -->
+        <div class="curated-panel glass">
+          <div class="panel-header-line">
+            <span class="ph-title">Processing &amp; Security</span>
+            <span class="ph-sub">Primary platform computing elements</span>
           </div>
-          <div class="card-body">
-            <div class="card-name">Processor</div>
-            <div class="card-value" id="cpu-card-value">—</div>
-            <div class="card-meta" id="cpu-card-meta">—</div>
+          <div class="panel-list">
+            <!-- CPU Row -->
+            <div class="panel-row" id="card-cpu">
+              <div class="row-left">
+                <span class="row-icon cpu-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="4" y="4" width="16" height="16" rx="2"/>
+                    <rect x="9" y="9" width="6" height="6"/>
+                  </svg>
+                </span>
+                <div class="row-info">
+                  <div class="row-name">Processor</div>
+                  <div class="row-value" id="cpu-card-value">—</div>
+                </div>
+              </div>
+              <div class="row-right">
+                <span class="row-meta" id="cpu-card-meta">—</span>
+                <span class="row-status" id="cpu-card-status"><span class="status-badge badge-neutral">—</span></span>
+              </div>
+            </div>
+
+            <!-- Memory Row -->
+            <div class="panel-row" id="card-memory">
+              <div class="row-left">
+                <span class="row-icon mem-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="7" width="20" height="10" rx="1"/>
+                  </svg>
+                </span>
+                <div class="row-info">
+                  <div class="row-name">Memory System</div>
+                  <div class="row-value" id="mem-card-value">—</div>
+                </div>
+              </div>
+              <div class="row-right">
+                <span class="row-meta" id="mem-card-meta">—</span>
+                <span class="row-status" id="mem-card-status"><span class="status-badge badge-neutral">—</span></span>
+              </div>
+            </div>
+
+            <!-- TPM Row -->
+            <div class="panel-row" id="card-tpm">
+              <div class="row-left">
+                <span class="row-icon tpm-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  </svg>
+                </span>
+                <div class="row-info">
+                  <div class="row-name">TPM Secure Cryptoprocessor</div>
+                  <div class="row-value" id="tpm-card-value">—</div>
+                </div>
+              </div>
+              <div class="row-right">
+                <span class="row-meta" id="tpm-card-meta">—</span>
+                <span class="row-status" id="tpm-card-status"><span class="status-badge badge-neutral">—</span></span>
+              </div>
+            </div>
           </div>
-          <div class="card-status" id="cpu-card-status"><span class="status-badge badge-neutral">—</span></div>
         </div>
 
-        <!-- Memory -->
-        <div class="component-card glass" id="card-memory">
-          <div class="card-icon mem-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <rect x="2" y="7" width="20" height="10" rx="1"/>
-              <line x1="6" y1="7" x2="6" y2="17"/><line x1="10" y1="7" x2="10" y2="17"/>
-              <line x1="14" y1="7" x2="14" y2="17"/><line x1="18" y1="7" x2="18" y2="17"/>
-              <line x1="6" y1="4" x2="6" y2="7"/><line x1="10" y1="4" x2="10" y2="7"/>
-              <line x1="14" y1="4" x2="14" y2="7"/><line x1="18" y1="4" x2="18" y2="7"/>
-            </svg>
+        <!-- Panel 2: Storage & Display Systems -->
+        <div class="curated-panel glass">
+          <div class="panel-header-line">
+            <span class="ph-title">Storage &amp; Display</span>
+            <span class="ph-sub">I/O subsystems and visuals</span>
           </div>
-          <div class="card-body">
-            <div class="card-name">Memory</div>
-            <div class="card-value" id="mem-card-value">—</div>
-            <div class="card-meta" id="mem-card-meta">—</div>
+          <div class="panel-list">
+            <!-- Storage Row -->
+            <div class="panel-row" id="card-storage">
+              <div class="row-left">
+                <span class="row-icon stor-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+                  </svg>
+                </span>
+                <div class="row-info">
+                  <div class="row-name">Solid State Storage</div>
+                  <div class="row-value" id="stor-card-value">—</div>
+                </div>
+              </div>
+              <div class="row-right">
+                <span class="row-meta" id="stor-card-meta">—</span>
+                <span class="row-status" id="stor-card-status"><span class="status-badge badge-neutral">—</span></span>
+              </div>
+            </div>
+
+            <!-- GPU Row -->
+            <div class="panel-row" id="card-gpu">
+              <div class="row-left">
+                <span class="row-icon gpu-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="6" width="20" height="12" rx="2"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                </span>
+                <div class="row-info">
+                  <div class="row-name">Graphics Processing Unit</div>
+                  <div class="row-value" id="gpu-card-value">—</div>
+                </div>
+              </div>
+              <div class="row-right">
+                <span class="row-meta" id="gpu-card-meta">—</span>
+                <span class="row-status" id="gpu-card-status"><span class="status-badge badge-neutral">—</span></span>
+              </div>
+            </div>
+
+            <!-- Display Row -->
+            <div class="panel-row" id="card-display">
+              <div class="row-left">
+                <span class="row-icon disp-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2"/>
+                  </svg>
+                </span>
+                <div class="row-info">
+                  <div class="row-name">Active Display Interface</div>
+                  <div class="row-value" id="disp-card-value">—</div>
+                </div>
+              </div>
+              <div class="row-right">
+                <span class="row-meta" id="disp-card-meta">—</span>
+                <span class="row-status" id="disp-card-status"><span class="status-badge badge-neutral">—</span></span>
+              </div>
+            </div>
           </div>
-          <div class="card-status" id="mem-card-status"><span class="status-badge badge-neutral">—</span></div>
         </div>
 
-        <!-- Storage -->
-        <div class="component-card glass" id="card-storage">
-          <div class="card-icon stor-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <ellipse cx="12" cy="5" rx="9" ry="3"/>
-              <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
-              <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
-            </svg>
+        <!-- Panel 3: Power & Connectivity -->
+        <div class="curated-panel glass">
+          <div class="panel-header-line">
+            <span class="ph-title">Power &amp; Network</span>
+            <span class="ph-sub">Hardware power levels and interfaces</span>
           </div>
-          <div class="card-body">
-            <div class="card-name">Storage</div>
-            <div class="card-value" id="stor-card-value">—</div>
-            <div class="card-meta" id="stor-card-meta">—</div>
-          </div>
-          <div class="card-status" id="stor-card-status"><span class="status-badge badge-neutral">—</span></div>
-        </div>
+          <div class="panel-list">
+            <!-- Battery Row -->
+            <div class="panel-row" id="card-battery">
+              <div class="row-left">
+                <span class="row-icon bat-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="1" y="7" width="18" height="10" rx="2"/>
+                  </svg>
+                </span>
+                <div class="row-info">
+                  <div class="row-name">Battery Power Pack</div>
+                  <div class="row-value" id="bat-card-value">—</div>
+                </div>
+              </div>
+              <div class="row-right">
+                <span class="row-meta" id="bat-card-meta">—</span>
+                <span class="row-status" id="bat-card-status"><span class="status-badge badge-neutral">—</span></span>
+              </div>
+            </div>
 
-        <!-- Battery -->
-        <div class="component-card glass" id="card-battery">
-          <div class="card-icon bat-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <rect x="1" y="7" width="18" height="10" rx="2"/>
-              <line x1="23" y1="10" x2="23" y2="14"/>
-              <rect x="3" y="9" width="10" height="6" rx="1" fill="currentColor" opacity="0.4"/>
-            </svg>
+            <!-- Network Row -->
+            <div class="panel-row" id="card-network">
+              <div class="row-left">
+                <span class="row-icon net-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+                  </svg>
+                </span>
+                <div class="row-info">
+                  <div class="row-name">Network Controllers</div>
+                  <div class="row-value" id="net-card-value">—</div>
+                </div>
+              </div>
+              <div class="row-right">
+                <span class="row-meta" id="net-card-meta">—</span>
+                <span class="row-status" id="net-card-status"><span class="status-badge badge-neutral">—</span></span>
+              </div>
+            </div>
           </div>
-          <div class="card-body">
-            <div class="card-name">Battery</div>
-            <div class="card-value" id="bat-card-value">—</div>
-            <div class="card-meta" id="bat-card-meta">—</div>
-          </div>
-          <div class="card-status" id="bat-card-status"><span class="status-badge badge-neutral">—</span></div>
-        </div>
-
-        <!-- Display -->
-        <div class="component-card glass" id="card-display">
-          <div class="card-icon disp-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <rect x="2" y="3" width="20" height="14" rx="2"/>
-              <line x1="8" y1="21" x2="16" y2="21"/>
-              <line x1="12" y1="17" x2="12" y2="21"/>
-            </svg>
-          </div>
-          <div class="card-body">
-            <div class="card-name">Display</div>
-            <div class="card-value" id="disp-card-value">—</div>
-            <div class="card-meta" id="disp-card-meta">—</div>
-          </div>
-          <div class="card-status" id="disp-card-status"><span class="status-badge badge-neutral">—</span></div>
-        </div>
-
-        <!-- GPU -->
-        <div class="component-card glass" id="card-gpu">
-          <div class="card-icon gpu-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <rect x="2" y="6" width="20" height="12" rx="2"/>
-              <circle cx="12" cy="12" r="3"/>
-              <line x1="6" y1="6" x2="6" y2="3"/><line x1="10" y1="6" x2="10" y2="3"/>
-              <line x1="14" y1="6" x2="14" y2="3"/><line x1="18" y1="6" x2="18" y2="3"/>
-            </svg>
-          </div>
-          <div class="card-body">
-            <div class="card-name">GPU</div>
-            <div class="card-value" id="gpu-card-value">—</div>
-            <div class="card-meta" id="gpu-card-meta">—</div>
-          </div>
-          <div class="card-status" id="gpu-card-status"><span class="status-badge badge-neutral">—</span></div>
-        </div>
-
-        <!-- Network -->
-        <div class="component-card glass" id="card-network">
-          <div class="card-icon net-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/>
-              <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/>
-            </svg>
-          </div>
-          <div class="card-body">
-            <div class="card-name">Network</div>
-            <div class="card-value" id="net-card-value">—</div>
-            <div class="card-meta" id="net-card-meta">—</div>
-          </div>
-          <div class="card-status" id="net-card-status"><span class="status-badge badge-neutral">—</span></div>
-        </div>
-
-        <!-- TPM -->
-        <div class="component-card glass" id="card-tpm">
-          <div class="card-icon tpm-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              <polyline points="9 12 11 14 15 10"/>
-            </svg>
-          </div>
-          <div class="card-body">
-            <div class="card-name">TPM Security</div>
-            <div class="card-value" id="tpm-card-value">—</div>
-            <div class="card-meta" id="tpm-card-meta">—</div>
-          </div>
-          <div class="card-status" id="tpm-card-status"><span class="status-badge badge-neutral">—</span></div>
         </div>
       </div>
       <!-- Recent Scans History -->
       <div class="section-label" style="margin-top:28px;">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         Recent Scans
-        <button id="btn-clear-history" class="btn-ghost-sm" style="margin-left:auto;">Clear History</button>
       </div>
       <div id="history-cards" class="history-row"></div>
     </section>
@@ -564,6 +596,7 @@
         </div>
       </header>
       <div id="settings-grid">
+        <!-- Card 1: General & Platform Access -->
         <div class="glass settings-card">
           <div class="settings-section-title">General</div>
           <div class="settings-row">
@@ -584,7 +617,7 @@
               <button id="btn-relaunch-admin" class="btn-secondary" style="font-size:0.8rem;">Relaunch</button>
             </div>
           </div>
-          <div class="settings-row">
+          <div class="settings-row" style="border-bottom: none;">
             <div class="settings-row-info">
               <div class="sr-label">Clear Scan History</div>
               <div class="sr-desc">Removes all saved scan reports from local storage.</div>
@@ -594,6 +627,10 @@
             </div>
           </div>
         </div>
+
+        <!-- Card 2: Inspection Depth -->
+        <div class="glass settings-card">
+          <div class="settings-section-title">Inspection Depth</div>
           <div class="settings-row">
             <div class="settings-row-info">
               <div class="sr-label">Run as Administrator</div>
@@ -613,7 +650,7 @@
               </select>
             </div>
           </div>
-          <div class="settings-row">
+          <div class="settings-row" style="border-bottom: none;">
             <div class="settings-row-info">
               <div class="sr-label">Include Registry Comparison</div>
               <div class="sr-desc">Compare Registry values against hardware-reported values.</div>
@@ -626,6 +663,38 @@
             </div>
           </div>
         </div>
+
+        <!-- Card 3: Over-the-Air Updates -->
+        <div class="glass settings-card" id="settings-updates-card">
+          <div class="settings-section-title">Over-the-Air Updates</div>
+          <div class="settings-row">
+            <div class="settings-row-info">
+              <div class="sr-label">Update Status</div>
+              <div class="sr-desc" id="setting-update-desc">Keep your hardware inspection definitions up to date.</div>
+            </div>
+            <div class="settings-row-control">
+              <span id="setting-update-status" class="muted-text">Awaiting check</span>
+            </div>
+          </div>
+          <!-- Real-time Progress row, hidden by default -->
+          <div class="settings-row" id="setting-update-progress-row" style="display: none; border-bottom: none; padding-top: 4px;">
+            <div class="progress-track" style="max-width: 100%;">
+              <div class="progress-bar" id="setting-update-progress-bar" style="width: 0%"></div>
+            </div>
+          </div>
+          <div class="settings-row" style="border-bottom: none;">
+            <div class="settings-row-info">
+              <div class="sr-label">Check for Updates</div>
+              <div class="sr-desc">Inspects GitHub Releases for newer binary builds.</div>
+            </div>
+            <div class="settings-row-control">
+              <button id="btn-check-updates" class="btn-primary" style="font-size:0.8rem; padding: 6px 14px;">Check Now</button>
+              <button id="btn-install-update" class="btn-primary" style="display: none; font-size:0.8rem; padding: 6px 14px; background: var(--success); box-shadow: 0 0 16px rgba(16,185,129,0.3);">Restart &amp; Apply</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: About Block -->
         <div class="glass settings-card">
           <div class="settings-section-title">About VeriCore</div>
           <div class="about-block">

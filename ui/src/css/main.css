@@ -371,48 +371,128 @@ body {
 }
 .no-scan-notice p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
 
-/* Component Grid */
-#component-grid {
+/* Curated Panels (Break the "Symmetric Card Grid" AI aesthetic) */
+.curated-panels {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  margin-top: 16px;
+}
+
+.curated-panel {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.curated-panel:hover {
+  border-color: rgba(59, 130, 246, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.panel-header-line {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 12px;
+}
+.ph-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.2px;
+}
+.ph-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.panel-list {
+  display: flex;
+  flex-direction: column;
   gap: 12px;
 }
-.component-card {
+
+.panel-row {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 16px;
-  min-width: 0;
-  transition: all var(--transition);
-  cursor: default;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.01);
+  transition: background var(--transition);
 }
-.component-card:hover {
-  border-color: var(--border-glow);
-  background: rgba(13,18,32,0.9);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-glow);
+.panel-row:hover {
+  background: rgba(255, 255, 255, 0.03);
 }
 
-.card-icon {
-  width: 40px; height: 40px;
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
+.row-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.row-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
 }
-.cpu-icon  { background: rgba(59,130,246,0.12); color: #3b82f6; }
-.mem-icon  { background: rgba(139,92,246,0.12); color: #8b5cf6; }
-.stor-icon { background: rgba(6,182,212,0.12);  color: #06b6d4; }
-.bat-icon  { background: rgba(16,185,129,0.12); color: #10b981; }
-.disp-icon { background: rgba(245,158,11,0.12); color: #f59e0b; }
-.gpu-icon  { background: rgba(239,68,68,0.12);  color: #ef4444; }
-.net-icon  { background: rgba(59,130,246,0.12); color: #3b82f6; }
-.tpm-icon  { background: rgba(16,185,129,0.12); color: #10b981; }
+.cpu-icon  { background: rgba(59,130,246,0.1); color: #3b82f6; }
+.mem-icon  { background: rgba(139,92,246,0.1); color: #8b5cf6; }
+.stor-icon { background: rgba(6,182,212,0.1);  color: #06b6d4; }
+.bat-icon  { background: rgba(16,185,129,0.1); color: #10b981; }
+.disp-icon { background: rgba(245,158,11,0.1); color: #f59e0b; }
+.gpu-icon  { background: rgba(239,68,68,0.1);  color: #ef4444; }
+.net-icon  { background: rgba(59,130,246,0.1); color: #3b82f6; }
+.tpm-icon  { background: rgba(16,185,129,0.1); color: #10b981; }
 
-.card-body { flex: 1; min-width: 0; }
-.card-name { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-muted); }
-.card-value { font-size: 0.85rem; font-weight: 600; color: var(--text-primary); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.card-meta { font-size: 0.72rem; color: var(--text-muted); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.card-status { flex-shrink: 0; }
+.row-info {
+  flex: 1;
+  min-width: 0;
+}
+.row-name {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.row-value {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.row-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.row-meta {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  text-align: right;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.row-status {
+  flex-shrink: 0;
+}
 
 /* Status Badges */
 .status-badge {
