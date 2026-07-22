@@ -45,8 +45,6 @@ class ScanController {
     this.startTime = Date.now();
     this._updateTimer();
     this.timer = setInterval(() => this._updateTimer(), 100);
-
-    if (demoMode) this._runDemoSequence();
   }
 
   // Called by the engine's progress events — creates item on-the-fly
@@ -135,28 +133,4 @@ class ScanController {
     el.textContent = `${s}.${ms}s`;
   }
 
-  // ── Demo sequence (when engine offline) ──────────
-  async _runDemoSequence() {
-    const demoComponents = [
-      'registry', 'smbios', 'bios', 'cpu', 'memory',
-      'storage', 'battery', 'display', 'gpu', 'network', 'tpm', 'consistency', 'scoring'
-    ];
-    this.totalExpected = demoComponents.length;
-
-    for (let i = 0; i < demoComponents.length; i++) {
-      const id = demoComponents[i];
-      // First: create the item as "entering" (spinner)
-      this.updateComponentStatus(id, 'scanning');
-
-      const delay = Math.random() * 600 + 200;
-      await new Promise(r => setTimeout(r, delay));
-
-      // Then mark done/warn
-      const status = id === 'display' ? 'warning' : 'done';
-      this.updateComponentStatus(id, status);
-    }
-
-    this.onScanComplete();
-    setTimeout(() => this.app.onScanDemoComplete(), 800);
-  }
 }

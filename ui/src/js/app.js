@@ -5,156 +5,6 @@
 
 'use strict';
 
-// ── Mock Data ──────────────────────────────────────
-const MOCK_REPORT = {
-  timestamp: new Date().toISOString(),
-  vericore_version: '1.0.2',
-  scores: {
-    health_score: 87,
-    authenticity_score: 94,
-    grade: 'B',
-    component_scores: {
-      cpu: 98, memory: 95, storage: 91,
-      battery: 68, display: 90, gpu: 96,
-      network: 100, tpm: 100
-    }
-  },
-  system_summary: {
-    manufacturer: 'Dell Inc.',
-    model: 'Latitude 7420',
-    serial: 'DLAT7420-9F2K1',
-    bios_version: '1.24.0',
-    uuid: 'A3F7B21C-44D9-4E08-8F1A-92CC3D01B7E5'
-  },
-  components: {
-    cpu: {
-      brand: 'Intel(R) Core(TM) i7-1185G7 @ 3.00GHz',
-      vendor_id: 'GenuineIntel',
-      architecture: 'X86_64',
-      core_count_physical: 4,
-      core_count_logical: 8,
-      hz_advertised: '3.0 GHz',
-      hz_actual: '2.98 GHz',
-      l2_cache: '5 MB',
-      l3_cache: '12 MB',
-      wmi_name: 'Intel(R) Core(TM) i7-1185G7',
-      wmi_manufacturer: 'Intel Corporation',
-      consistency_issues: []
-    },
-    memory: {
-      total_bytes: 17179869184,
-      available_bytes: 9663676416,
-      used_percent: 43.8,
-      total_from_slots: 17179869184,
-      slots: [
-        { bank_label: 'DIMM A', capacity: 8589934592, speed: 4266, manufacturer: 'Samsung', part_number: 'M471A1K43DB1-CWE', memory_type: 'LPDDR4' },
-        { bank_label: 'DIMM B', capacity: 8589934592, speed: 4266, manufacturer: 'Samsung', part_number: 'M471A1K43DB1-CWE', memory_type: 'LPDDR4' }
-      ],
-      consistency_issues: []
-    },
-    storage: [
-      {
-        model: 'Samsung SSD 970 EVO Plus 1TB',
-        size_bytes: 1000204886016,
-        interface_type: 'NVMe',
-        serial_number: 'S4EWNX0N123456',
-        firmware_revision: '2B2QEXM7',
-        smart_status: 'OK',
-        wmi_model: 'Samsung SSD 970 EVO Plus 1TB',
-        consistency_issues: []
-      }
-    ],
-    battery: {
-      present: true,
-      percent: 82,
-      is_charging: false,
-      design_capacity_mwh: 64000,
-      current_capacity_mwh: 44480,
-      wear_percent: 30.5,
-      cycle_count: 287,
-      manufacturer: 'SMP',
-      chemistry: 'LiP',
-      serial: 'BC123456',
-      status: 'Discharging',
-      consistency_issues: []
-    },
-    display: [
-      {
-        manufacturer_id: 'DEL',
-        manufacturer_name: 'Dell',
-        product_code: '0x41C6',
-        manufacture_year: 2021,
-        resolution_h: 1920,
-        resolution_v: 1080,
-        size_cm: '34x19 cm',
-        monitor_name: 'Dell P2419H',
-        wmi_name: 'Generic PnP Monitor',
-        consistency_issues: [
-          { description: 'WMI reports "Generic PnP Monitor" but EDID identifies Dell P2419H', severity: 'info' }
-        ]
-      }
-    ],
-    gpu: [
-      {
-        name: 'Intel(R) Iris(R) Xe Graphics',
-        driver_version: '31.0.101.2130',
-        driver_date: '2023-11-14',
-        vram_bytes: 2147483648,
-        resolution: '1920x1080',
-        refresh_rate: 60,
-        consistency_issues: []
-      }
-    ],
-    network: {
-      adapters: [
-        { name: 'Intel(R) Wi-Fi 6 AX201', mac: 'A4:C3:F0:12:34:56', type: 'WiFi', manufacturer: 'Intel Corporation', speed: 1201 },
-        { name: 'Intel(R) Ethernet Connection I219-LM', mac: '18:C0:4D:AB:CD:EF', type: 'Ethernet', manufacturer: 'Intel Corporation', speed: 1000 },
-        { name: 'Intel(R) Wireless Bluetooth', mac: 'A4:C3:F0:78:9A:BC', type: 'Bluetooth', manufacturer: 'Intel Corporation', speed: null }
-      ]
-    },
-    tpm: {
-      present: true,
-      activated: true,
-      enabled: true,
-      owned: true,
-      manufacturer_id: '0x494e5443',
-      manufacturer_name: 'Intel',
-      version: '2.0',
-      spec_version: '2.0',
-      consistency_issues: []
-    },
-    bios: {
-      manufacturer: 'Dell Inc.',
-      version: '1.24.0',
-      release_date: '2023-09-12',
-      serial_number: 'DLAT7420-9F2K1',
-      smbios_version: '3.2',
-      system_manufacturer: 'Dell Inc.',
-      system_model: 'Latitude 7420',
-      secure_boot_enabled: true,
-      uefi_mode: true,
-      consistency_issues: []
-    }
-  },
-  inconsistencies: [
-    {
-      field: 'Monitor Identification',
-      source_a: 'WMI Win32_DesktopMonitor',
-      value_a: 'Generic PnP Monitor',
-      source_b: 'EDID Registry',
-      value_b: 'Dell P2419H',
-      severity: 'info',
-      description: 'Windows reports a generic monitor name, but EDID data identifies the specific panel model.'
-    }
-  ],
-  recommendations: [
-    'Battery wear at 30.5% — consider monitoring degradation over time.',
-    'Display driver reports a generic monitor name. Update display driver for accurate panel identification.',
-    'SMART health confirmed OK. No storage anomalies detected.',
-    'TPM 2.0 active and enabled. Secure Boot is on — security configuration is excellent.'
-  ]
-};
-
 // ── App Controller ─────────────────────────────────
 class VeriCoreApp {
   constructor() {
@@ -162,7 +12,7 @@ class VeriCoreApp {
     this.currentReport = null;
     this.scanController = null;
     this.reportRenderer = null;
-    this.demoMode = true;
+    this.demoMode = false; // Disable demo mode/mocks by default to prevent carrying fake data.
   }
 
   init() {
@@ -242,7 +92,7 @@ class VeriCoreApp {
     });
 
     window.vericore.onEngineUnavailable(() => {
-      this.demoMode = true;
+      this.demoMode = false; // No mock demo mode
     });
 
     window.vericore.onMenuExport(() => this._exportReport());
@@ -272,25 +122,12 @@ class VeriCoreApp {
     this.navigateTo('scan');
     this.scanController.startScan(this.demoMode);
 
-    if (!this.demoMode && window.vericore) {
+    if (window.vericore) {
       const result = await window.vericore.startScan();
       if (result.demo) {
-        this.demoMode = true;
-        // Start the demo sequence since the engine is unavailable
-        this.scanController.startScan(true);
+        alert('VeriCore engine is currently offline. Please run your terminal or backend engine as Administrator.');
       }
     }
-  }
-
-  onScanDemoComplete() {
-    this.currentReport = MOCK_REPORT;
-    this._saveToHistory(MOCK_REPORT);
-    this.reportRenderer.render(MOCK_REPORT);
-    setTimeout(() => {
-      this.navigateTo('report');
-      document.getElementById('last-scan-time').textContent = 'Scanned just now';
-    }, 600);
-    this._populateDashboardFromReport(MOCK_REPORT);
   }
 
   // ── Export ──────────────────────────────────────
@@ -479,20 +316,7 @@ class VeriCoreApp {
 
   _runDiagDemo(type) {
     const typeId = type === 'memory' ? 'mem' : type === 'storage' ? 'stor' : type;
-    this._setDiagStatus(typeId, 'Running...', '#3b82f6');
-    const metricMap = {
-      cpu:     [['dcpu-load','dcpu-temp','dcpu-freq'], ['78%','62°C','3.4 GHz']],
-      mem:     [['dmem-tested','dmem-errors','dmem-speed'], ['8.0 GB','0','28 GB/s']],
-      memory:  [['dmem-tested','dmem-errors','dmem-speed'], ['8.0 GB','0','28 GB/s']],
-      stor:    [['dstor-read','dstor-write','dstor-iops'], ['3421 MB/s','2980 MB/s','412K']],
-      storage: [['dstor-read','dstor-write','dstor-iops'], ['3421 MB/s','2980 MB/s','412K']],
-      thermal: [['dtherm-cpu','dtherm-sys','dtherm-throttle'], ['58°C','42°C','No']]
-    };
-    const [ids, vals] = metricMap[type] || [[], []];
-    setTimeout(() => {
-      ids.forEach((id, i) => this._setText(id, vals[i]));
-      this._setDiagStatus(typeId, 'Complete', '#10b981');
-    }, 2000);
+    this._setDiagStatus(typeId, 'Offline', '#f97316');
   }
 
   _updateDiagnosticUI(metrics) {
@@ -615,6 +439,77 @@ class VeriCoreApp {
       clearBtn.addEventListener('click', () => {
         localStorage.removeItem('vc_scan_history');
         this._renderHistory();
+      });
+    }
+
+    // OTA Updates UI Integration
+    const btnCheck = document.getElementById('btn-check-updates');
+    const btnInstall = document.getElementById('btn-install-update');
+    const statusTxt = document.getElementById('setting-update-status');
+    const progressRow = document.getElementById('setting-update-progress-row');
+    const progressBar = document.getElementById('setting-update-progress-bar');
+
+    if (btnCheck && window.vericore) {
+      btnCheck.addEventListener('click', async () => {
+        btnCheck.disabled = true;
+        btnCheck.textContent = 'Checking...';
+        if (statusTxt) statusTxt.textContent = 'Connecting to release channel...';
+        await window.vericore.checkForUpdates();
+      });
+    }
+
+    if (btnInstall && window.vericore) {
+      btnInstall.addEventListener('click', async () => {
+        await window.vericore.installUpdate();
+      });
+    }
+
+    if (window.vericore) {
+      window.vericore.onUpdateStatus((data) => {
+        if (!statusTxt) return;
+
+        switch (data.status) {
+          case 'checking':
+            statusTxt.textContent = 'Checking for updates...';
+            statusTxt.style.color = 'var(--accent-blue)';
+            break;
+          case 'available':
+            statusTxt.textContent = `Update available (v${data.version})!`;
+            statusTxt.style.color = 'var(--warning)';
+            if (progressRow) progressRow.style.display = 'flex';
+            break;
+          case 'up-to-date':
+            statusTxt.textContent = 'You are on the latest version ✓';
+            statusTxt.style.color = 'var(--success)';
+            if (btnCheck) {
+              btnCheck.disabled = false;
+              btnCheck.textContent = 'Check Now';
+            }
+            if (progressRow) progressRow.style.display = 'none';
+            break;
+          case 'downloading':
+            statusTxt.textContent = `Downloading... (${data.percent}%)`;
+            statusTxt.style.color = 'var(--accent-cyan)';
+            if (progressBar) progressBar.style.width = `${data.percent}%`;
+            if (progressRow) progressRow.style.display = 'flex';
+            break;
+          case 'downloaded':
+            statusTxt.textContent = `Version v${data.version} downloaded! Ready to apply.`;
+            statusTxt.style.color = 'var(--success)';
+            if (progressRow) progressRow.style.display = 'none';
+            if (btnCheck) btnCheck.style.display = 'none';
+            if (btnInstall) btnInstall.style.display = 'inline-flex';
+            break;
+          case 'error':
+            statusTxt.textContent = `Check failed: ${data.message || 'Offline'}`;
+            statusTxt.style.color = 'var(--danger)';
+            if (btnCheck) {
+              btnCheck.disabled = false;
+              btnCheck.textContent = 'Check Now';
+            }
+            if (progressRow) progressRow.style.display = 'none';
+            break;
+        }
       });
     }
   }
